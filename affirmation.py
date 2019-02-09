@@ -34,7 +34,7 @@ def sms():
     resp = """
     <Response>
         <Message>
-            Happy Galentines Day, you {}
+            Happy Galentine's Day, you {}
         </Message>
     </Response>""".format(compliment)
 
