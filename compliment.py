@@ -2,9 +2,6 @@ from flask import Flask, Response
 import random
 
 
-app = Flask(__name__)
-
-
 def construct_compliment():
     compliment = ""
 
@@ -12,7 +9,8 @@ def construct_compliment():
         adjectives = f.readlines()
         adjectives = [x.strip() for x in adjectives]
 
-        compliment = ", ".join(random.sample(adjectives, 2))
+        num_compliments = random.randint(2,5)
+        compliment = ", ".join(random.sample(adjectives, num_compliments))
 
     with open("nouns.txt") as f:
         nouns = f.readlines()
@@ -20,16 +18,15 @@ def construct_compliment():
         
         compliment = compliment + " " + random.sample(nouns, 1)[0]
     
-    print(compliment)
-    
     return compliment
 
+
+app = Flask(__name__)
 
 
 @app.route("/sms", methods=["GET", "POST"])
 def sms():
     compliment = construct_compliment()
-    print(compliment)
 
     resp = """
     <Response>
